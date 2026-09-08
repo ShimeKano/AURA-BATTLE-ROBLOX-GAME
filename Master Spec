@@ -1,0 +1,1827 @@
+⚡ AURA BATTLE
+Game Design & Technical Specification
+Version 0.1 — Master Design Document
+
+Genre: Real-time PvP / PvE / Progression / Social
+Platform: Roblox
+Core fantasy: Become the strongest player in the server, but the stronger you become, the more attention you attract.
+Core resource: Aura
+Combat: Real-time
+Primary progression: Aura → HP / Damage / Skills
+Social mechanic: Weak players can cooperate to defeat stronger players.
+Monetization: Robux purchases, boosts, consumables, premium convenience.
+Target MVP development: ~7 days with AI-assisted development, assuming scope discipline.
+
+1. TẦM NHÌN
+1.1. Một câu mô tả
+
+Farm Aura → become stronger → enter dangerous PvP zones → defeat players → steal part of their Aura → become a server threat → attract increasingly larger groups of players.
+
+Game phải tạo cảm giác:
+
+“Tao càng mạnh, càng nhiều người muốn giết tao.”
+
+Đây là mechanic trung tâm.
+
+2. MỤC TIÊU CỦA GAME
+
+Game có 5 mục tiêu chính:
+
+① Progression
+
+Người chơi luôn có mục tiêu:
+
+10 Aura
+↓
+100
+↓
+1K
+↓
+10K
+↓
+100K
+↓
+1M
+↓
+10M
+↓
+...
+② PvP
+
+Người chơi mạnh có thể săn người yếu hơn.
+
+Người yếu có thể:
+
+chạy;
+phục kích;
+gọi đồng đội;
+hội đồng người mạnh.
+③ Social interaction
+
+Server phải tự sinh ra:
+
+alliances;
+rivalries;
+revenge;
+bounty;
+server bosses;
+group hunts.
+
+Không cần làm clan system ở MVP.
+
+④ Flex
+
+Aura phải là một status symbol.
+
+Player có:
+
+10 Aura
+
+và player có:
+
+10,000,000 Aura
+
+phải nhìn khác nhau rõ ràng.
+
+⑤ Live events
+
+Admin có thể tạo những sự kiện bất ngờ:
+
+Aura Rain
+Boss Spawn
+Apocalypse
+Free Aura
+Mass PvP Event
+
+để game không trở nên tĩnh.
+
+3. CORE GAME LOOP
+
+Đây là thứ mọi developer phải hiểu trước khi viết code.
+
+SPAWN
+  ↓
+FARM NPC
+  ↓
+GAIN AURA
+  ↓
+UNLOCK HP / DAMAGE / SKILLS
+  ↓
+ENTER DANGEROUS AREA
+  ↓
+FIGHT PLAYERS
+  ↓
+KILL PLAYER
+  ↓
+STEAL PART OF THEIR AURA
+  ↓
+BECOME STRONGER
+  ↓
+ATTRACT STRONGER ENEMIES
+  ↓
+REPEAT
+
+Secondary loop:
+
+AFK
+ ↓
+PASSIVE AURA
+ ↓
+UPGRADE AFK
+ ↓
+RETURN LATER
+
+Monetization loop:
+
+PLAY
+ ↓
+SEE EXPENSIVE / RARE AURA
+ ↓
+WANT FASTER PROGRESSION
+ ↓
+SHOP
+ ↓
+BOOST / AURA PACK / PROTECTION / CONSUMABLE
+4. PLAYER STARTING STATE
+
+Player mới:
+
+Aura: 10
+HP: Base minimum
+Damage: Base minimum
+Skills: None
+Weapons: Basic attack
+AFK Level: 0
+
+Player xuất hiện tại:
+
+Safe Zone
+
+Tutorial chỉ cần vài giây:
+
+1. Fight NPC
+2. Gain Aura
+3. Become stronger
+4. Enter PvP
+5. Defeat players
+
+Không bắt player đọc một đống text.
+
+5. AURA SYSTEM
+5.1. Aura là gì?
+
+Aura là một số nguyên đại diện cho progression/power/status.
+
+Ví dụ:
+
+Aura = 10
+
+hoặc:
+
+Aura = 2,483,921
+
+Aura không phải physical item.
+
+Không cần inventory cho Aura.
+
+6. CÁCH KIẾM AURA
+
+Có 4 nguồn chính.
+
+6.1. PvE
+
+Đánh NPC.
+
+NPC càng mạnh:
+
+reward càng cao.
+
+Ví dụ:
+
+NPC	Reward
+Weak	1–5
+Normal	10–30
+Strong	100–300
+Elite	1K–5K
+Boss	10K–100K+
+
+Giá trị thực tế sẽ được balance bằng config.
+
+7. NPC PROGRESSION GATE
+
+Player không được farm NPC yếu vô hạn.
+
+Mỗi NPC/khu vực có Aura Farm Cap.
+
+Ví dụ:
+
+Weak NPC
+Max useful progression: 1K Aura
+
+Normal NPC
+Max useful progression: 10K
+
+Strong NPC
+Max useful progression: 100K
+
+Elite NPC
+Max useful progression: 1M
+
+Khi vượt giới hạn:
+
+THIS NPC NO LONGER GIVES AURA
+
+Mục tiêu:
+
+ép player tiến vào content khó hơn.
+
+8. SHOP
+
+Shop nằm trong Safe Zone.
+
+Có thể bán:
+
+Aura multiplier
+2× Aura
+3× Aura
+4× Aura
+5× Aura
+Aura packs
++10K
++100K
++1M
++10M
+Protection
+
+Cho player một khoảng thời gian không thể chết.
+
+Emergency Teleport
+
+Teleport về Safe Zone.
+
+Nếu thiết kế cho phép:
+
+lập tức chuyển sang safe state.
+
+Giá nên thấp vì đây là escape utility, không phải premium progression chính.
+
+9. AFK SYSTEM
+
+Có khu:
+
+💤 AFK Zone
+
+Player đứng yên:
+
++Aura theo thời gian
+
+Ví dụ:
+
+AFK Lv.1
++1 / 10 sec
+
+AFK Lv.2
++3 / 10 sec
+
+AFK Lv.3
++10 / 10 sec
+
+AFK Lv.4
++30 / 10 sec
+Nguyên tắc
+
+AFK:
+
+giúp player không bị bỏ lại.
+
+AFK không được mạnh hơn active farming.
+
+Nếu active farming = 10,000 Aura/minute
+
+thì AFK không được đạt 50,000 Aura/minute.
+
+10. AURA → POWER
+
+Aura unlock progression.
+
+Các stat chính:
+
+❤️ HP
+
+Aura milestone → tăng max HP.
+
+⚔️ Damage
+
+Aura milestone → tăng damage.
+
+⚡ Skills
+
+Nếu combat system đủ ổn:
+
+Aura milestone → unlock skill.
+
+11. POWER SCALE
+
+Không được hard-code toàn bộ stat trong script.
+
+Tạo config:
+
+ProgressionConfig
+
+Ví dụ logic:
+
+Aura >= 100
+→ HP Lv.1
+
+Aura >= 500
+→ Damage Lv.1
+
+Aura >= 1,000
+→ HP Lv.2
+
+Aura >= 5,000
+→ Skill Lv.1
+
+Các con số phải nằm trong configuration, không rải khắp code.
+
+Lý do:
+
+Balance sau này sẽ thay đổi liên tục.
+
+12. COMBAT
+MVP
+
+Nếu skill system chưa đủ đơn giản:
+
+basic attack trước.
+
+Có thể dùng:
+
+fist;
+stick;
+simple weapon.
+
+Combat cần:
+
+Attack
+↓
+Hit detection
+↓
+Damage
+↓
+Combat state
+↓
+Death
+
+Không cần combo phức tạp ở v0.1.
+
+13. SKILL SYSTEM
+
+Skill là optional MVP.
+
+Chỉ làm khi basic combat đã ổn.
+
+Kiến trúc phải cho phép thêm skill sau.
+
+Ví dụ:
+
+Skills
+├── Dash
+├── HeavyPunch
+├── Shockwave
+├── Shield
+└── Teleport
+
+Mỗi skill có:
+
+Name
+Cooldown
+Damage
+Range
+Duration
+AuraRequirement
+
+Không hard-code vào combat script.
+
+14. PVP SYSTEM
+
+PvP chỉ hoạt động trong PvP area.
+
+Khi player:
+
+gây damage player khác;
+nhận damage từ player khác;
+
+→ vào:
+
+Combat State
+
+15. COMBAT STATE
+
+Combat State kéo dài:
+
+60 giây sau damage cuối cùng.
+
+Trong Combat State:
+
+❌ Không được:
+hồi máu;
+trở thành Safe;
+sử dụng Safe Zone để reset combat.
+✅ Có thể:
+chạy vào Safe Zone;
+tiếp tục bị đánh;
+tiếp tục gây damage.
+
+Khi:
+
+60 seconds
++
+không nhận damage
+
+→ player trở thành:
+
+SAFE
+
+và bắt đầu hồi máu.
+
+16. SAFE ZONE
+
+Safe Zone chứa:
+
+Spawn
+Shop
+AFK access
+Upgrade
+Admin area
+
+Nhưng Safe Zone không phải instant immunity.
+
+Ví dụ:
+
+Player A
+HP: 10%
+
+↓ chạy vào Safe Zone
+
+Combat State = TRUE
+
+↓
+Player B vẫn đánh được
+
+↓
+60 sec không damage
+
+↓
+
+SAFE
+HP regeneration enabled
+17. AURA LOSS
+
+Aura chỉ mất khi:
+
+Player bị player khác giết trong PvP.
+
+NPC giết:
+
+❌ Không mất Aura.
+
+PvP death:
+
+mất một phần Aura.
+
+Default proposal:
+
+10% Aura
+
+Ví dụ:
+
+2,000 Aura
+↓
+Death
+↓
+-200 Aura
+
+Player còn:
+
+1,800 Aura.
+
+Không cho player mới rơi thẳng về 0.
+
+Có minimum/floor.
+
+18. AURA REWARD POOL
+
+Aura mất từ victim trở thành:
+
+PvP Reward Pool
+
+Ví dụ:
+
+Victim:
+2,000 Aura
+
+Loss:
+200 Aura
+
+→ Reward Pool:
+
+200 Aura.
+
+Reward chia theo damage contribution.
+
+19. DAMAGE CONTRIBUTION
+
+Nếu:
+
+Player A = 25% damage
+Player B = 10%
+Player C = 5%
+Others = 60%
+
+thì reward tương ứng:
+
+200 × 25% = 50
+200 × 10% = 20
+200 × 5% = 10
+...
+
+Phải có:
+
+minimum reward / rounding rules
+
+để tránh floating point hoặc reward quá nhỏ.
+
+20. MULTI-PLAYER HUNT
+
+Đây là một trong những signature mechanics.
+
+Ví dụ:
+
+👑 Player:
+2,000 Aura
+
+VS
+
+👤 100 players:
+10 Aura
+
+100 player có thể hợp lực.
+
+Không giới hạn:
+
+“chỉ người mạnh hơn mới được đánh.”
+
+Người yếu vẫn có contribution.
+
+21. ANTI-FARM TARGET SYSTEM
+
+Không được để 100 người farm một player mãi mãi.
+
+Mỗi target có:
+
+Reward eligibility tracking.
+
+Ví dụ:
+
+Target:
+Player X
+
+Death #1
+→ reward
+
+Death #2
+→ reward
+
+Death #3
+→ reward
+
+Sau ngưỡng:
+previous attackers
+→ không tiếp tục nhận reward từ target này
+
+Người mới tham gia:
+
+có thể đủ điều kiện reward theo luật eligibility.
+
+Nhưng contribution vẫn được ghi nhận.
+
+Mục tiêu
+
+Ngăn:
+
+100 alt account + 1 whale
+
+tạo Aura vô hạn.
+
+22. TẠI SAO PLAYER MẠNH KHÔNG ĐƯỢC BẤT TỬ?
+
+Player nhiều Aura:
+
+Higher HP
+Higher Damage
+
+nhưng đồng thời:
+
+trở thành mục tiêu lớn hơn.
+
+23. SERVER THREAT SYSTEM
+
+Đây là weakness tự nhiên của player mạnh.
+
+Ví dụ:
+
+10 Aura
+→ invisible / normal
+
+10K
+→ visible Aura effect
+
+100K
+→ stronger visual effect
+
+1M
+→ server leaderboard highlight
+
+10M
+→ WORLD THREAT
+
+Khi đạt threshold:
+
+server có thể hiển thị vị trí/khu vực của player.
+
+Ví dụ:
+
+🚨 WORLD THREAT
+
+@PlayerX
+10,283,920 Aura
+
+Last seen:
+Desert
+
+Mục tiêu:
+
+càng mạnh → càng khó ẩn mình.
+
+24. SERVER BOSS
+
+Một player cực mạnh có thể trở thành:
+
+Server Boss
+
+Không cần NPC boss.
+
+Player thực sự là boss.
+
+Ví dụ:
+
+👑 SERVER BOSS
+
+Aura:
+25,492,100
+
+Bounty:
+2,549,210
+
+Những người khác có thể tổ chức săn.
+
+25. ADMIN EVENT SYSTEM
+
+Admin có thể trigger event trực tiếp.
+
+Các event cần hỗ trợ:
+
+Aura Rain
+
+Aura spawn/rơi trong map.
+
+Boss Spawn
+
+Spawn boss NPC.
+
+Free Aura
+
+Give Aura cho người chơi.
+
+Meteor Shower
+
+Các vùng nguy hiểm xuất hiện.
+
+Apocalypse
+
+PvP event toàn map.
+
+Boss Rush
+
+Nhiều boss liên tục.
+
+26. ADMIN COMMAND ARCHITECTURE
+
+Admin command không được viết lung tung trong các script gameplay.
+
+Tạo:
+
+AdminService
+
+và:
+
+AdminCommands
+
+Ví dụ:
+
+/giveaura player amount
+/spawnboss bossName
+/event eventName
+/setaura player amount
+
+Phải có:
+
+Admin permission check
+Audit logging
+Input validation
+
+Không bao giờ trust client.
+
+27. ADMIN GIVE AURA
+
+Admin có thể:
+
+/giveaura PlayerName 1000000
+
+Result:
+
+🎁 ADMIN GIFT
+
+PlayerName received
+1,000,000 Aura
+
+Có thể dùng cho:
+
+event;
+giveaway;
+creator event;
+compensation;
+testing.
+28. MONETIZATION PHILOSOPHY
+
+Game có thể khá aggressive về monetization.
+
+Nhưng phải tránh:
+
+nạp tiền = auto thắng mọi thứ.
+
+Robux nên mua:
+
+Faster progression
+
+2×–5× Aura.
+
+Convenience
+
+Teleport.
+
+Protection
+
+Temporary protection.
+
+Instant progression
+
+Aura pack.
+
+Rare/OP consumables
+
+Ví dụ:
+
+Massacre
+
+Nhưng phải có:
+
+cooldown;
+restrictions;
+clear UI.
+29. MASSACRE
+
+Consumable cao cấp.
+
+Effect:
+
+giết tất cả player hợp lệ trong một khu vực PvP.
+
+Không hoạt động trong Safe Zone.
+
+Nên có:
+
+Warning
+Countdown
+Area indicator
+Sound
+Visual effect
+
+Ví dụ:
+
+☢️ MASSACRE
+
+WARNING
+
+All players in this zone
+will be eliminated.
+
+[3]
+[2]
+[1]
+
+Mục tiêu:
+
+tạo khoảnh khắc viral.
+
+30. EMERGENCY TELEPORT
+
+Consumable rẻ.
+
+Effect:
+
+Teleport
+↓
+Safe Zone
+↓
+Combat state cleared
+
+Đây là item:
+
+panic button.
+
+Không nên quá đắt.
+
+31. NEW PLAYER REWARD
+
+Người chơi mới có thể nhận:
+
+20K Aura
+
+sau khi:
+
+like game;
+favorite game.
+
+Mục tiêu:
+
+giảm friction ban đầu.
+
+Nhưng reward phải được claim một lần.
+
+32. MAP DESIGN
+
+MVP không cần map khổng lồ.
+
+Cấu trúc:
+
+                 [HIGH LEVEL]
+                    🏛️
+                    │
+          [MID LEVEL AREA]
+               /         \
+          🌲               🏜️
+            \             /
+             \           /
+              [PVP CORE]
+                   │
+             [SAFE ZONE]
+                   │
+              [SPAWN]
+33. ZONE DESIGN
+SAFE ZONE
+spawn;
+shop;
+upgrades;
+AFK access.
+LOW LEVEL
+
+NPC yếu.
+
+MID LEVEL
+
+NPC mạnh hơn.
+
+HIGH LEVEL
+
+NPC rất mạnh.
+
+HIGH-RISK PVP
+
+Treasure/resource reward lớn.
+
+34. PLAYER FLOW
+
+Player mới:
+
+Spawn
+↓
+See NPC
+↓
+Attack
+↓
+Get Aura
+↓
+Upgrade
+↓
+Explore
+↓
+See stronger NPC
+↓
+Farm
+↓
+Enter PvP
+↓
+See powerful player
+↓
+Run / fight / team up
+35. FIRST 3 MINUTES
+0:00
+
+Spawn:
+
+10 Aura.
+
+0:10
+
+NPC gần nhất.
+
+0:30
+
+Player giết NPC.
+
++Aura.
+
+1:00
+
+Unlock first upgrade.
+
+1:30
+
+Đi tới khu mạnh hơn.
+
+2:00
+
+Nhìn thấy player khác.
+
+2:30
+
+Có thể thử PvP.
+
+3:00
+
+Player hiểu:
+
+Farm → become strong → fight.
+
+Đây là mục tiêu onboarding.
+
+36. UI
+
+HUD tối thiểu:
+
+┌────────────────────────────┐
+│ 👑 AURA: 12,483            │
+│                            │
+│ ❤️ HP: 820 / 820           │
+│                            │
+│ ⚔️ DAMAGE: 120             │
+│                            │
+│ [Skill] [Skill] [Skill]    │
+└────────────────────────────┘
+
+Leaderboard:
+
+1. 👑 PlayerX     2,483,921
+2. 🔥 PlayerY       983,201
+3. ⚡ PlayerZ       321,880
+37. VISUAL IDENTITY
+
+Aura chỉ là số nhưng phải có visual representation.
+
+Không cần mỗi Aura là một model riêng.
+
+Có thể dựa trên threshold:
+
+10
+→ no effect
+
+100
+→ small glow
+
+1K
+→ stronger effect
+
+10K
+→ particles
+
+100K
+→ large effect
+
+1M
+→ dramatic effect
+
+Điều này cực rẻ về asset.
+
+38. DATA ARCHITECTURE
+
+Server authoritative.
+
+Player
+│
+├── Aura
+├── Stats
+│   ├── MaxHP
+│   ├── Damage
+│   └── ...
+│
+├── Progression
+│
+├── AFKLevel
+│
+├── Purchases
+│
+└── Settings
+
+Client chỉ hiển thị.
+
+Client không quyết định Aura.
+
+39. SERVER AUTHORITY
+
+Client gửi:
+
+"I attacked NPC"
+
+Server kiểm tra:
+
+Player alive?
+Correct weapon?
+Valid target?
+Distance valid?
+Cooldown valid?
+
+Sau đó server mới:
+
+apply damage.
+
+Tương tự:
+
+Aura gain/loss.
+
+Không bao giờ:
+
+LocalScript:
+Aura += 100000
+40. DATASTORE
+
+Phải lưu tối thiểu:
+
+Aura
+AFKLevel
+UnlockedStats
+OwnedProducts
+
+Save:
+
+periodic;
+PlayerRemoving;
+BindToClose.
+
+Phải có:
+
+retry logic.
+
+Không để DataStore failure làm mất progression.
+
+41. CONFIGURATION
+
+Toàn bộ balance phải nằm trong config.
+
+Ví dụ:
+
+GameConfig
+├── NPCConfig
+├── ProgressionConfig
+├── CombatConfig
+├── AuraConfig
+├── AFKConfig
+├── ShopConfig
+├── EventConfig
+└── AdminConfig
+
+Developer muốn đổi:
+
+10% Aura loss → 5%
+
+thì chỉ sửa config.
+
+Không sửa 15 script.
+
+42. DEVELOPMENT STRUCTURE
+
+Tôi chia project thành các module:
+
+ServerScriptService
+│
+├── Services
+│   ├── PlayerService
+│   ├── AuraService
+│   ├── CombatService
+│   ├── NPCService
+│   ├── ProgressionService
+│   ├── PvPService
+│   ├── AFKService
+│   ├── DataService
+│   ├── ShopService
+│   ├── AdminService
+│   └── EventService
+│
+└── Main.server.lua
+
+Client:
+
+StarterPlayer
+└── StarterPlayerScripts
+    ├── CombatController
+    ├── UIController
+    └── InputController
+
+Shared:
+
+ReplicatedStorage
+├── Remotes
+├── Shared
+│   ├── Config
+│   └── Utilities
+└── Assets
+43. CHIA VIỆC
+
+Đây là phần bro có thể copy từng task đưa cho người khác/AI.
+
+TASK A — Core Player System
+
+Mục tiêu:
+
+Tạo player state.
+
+Phải hỗ trợ:
+
+Aura;
+HP;
+Damage;
+initialization;
+server-side validation.
+
+Input:
+
+Roblox Player.
+
+Output:
+
+Player state sẵn sàng cho các service khác.
+
+Không được:
+
+viết combat;
+viết shop;
+viết NPC.
+TASK B — AuraService
+
+Mục tiêu:
+
+Quản lý mọi thay đổi Aura.
+
+API dự kiến:
+
+GetAura(player)
+AddAura(player, amount, reason)
+RemoveAura(player, amount, reason)
+SetAura(player, amount, reason)
+
+Mọi Aura modification phải đi qua service này.
+
+Reasons:
+
+NPC_KILL
+PVP_REWARD
+PVP_LOSS
+SHOP_PURCHASE
+ADMIN_GIFT
+EVENT
+AFK
+
+Không được phép:
+
+script khác tự sửa Aura.
+
+TASK C — NPC System
+
+Mục tiêu:
+
+NPC có:
+
+health;
+attack;
+reward;
+respawn;
+tier.
+
+NPC death:
+
+NPC dies
+↓
+determine killer/contributors
+↓
+AuraService.AddAura()
+
+NPC không được tự sửa player Aura.
+
+TASK D — Combat System
+
+Mục tiêu:
+
+Basic attack.
+
+Flow:
+
+Input
+↓
+Client request
+↓
+Server validation
+↓
+Hit detection
+↓
+Damage
+↓
+CombatState
+
+Anti-exploit:
+
+range check;
+cooldown;
+target validation.
+TASK E — PvP Reward System
+
+Mục tiêu:
+
+Khi player chết bởi player:
+
+calculate loss
+↓
+remove Aura from victim
+↓
+create reward pool
+↓
+calculate contribution
+↓
+distribute reward
+
+Phải hỗ trợ nhiều attacker.
+
+TASK F — Combat State
+
+Mục tiêu:
+
+Track:
+
+lastDamageTime
+combatExpiresAt
+
+60 giây không damage:
+
+exit combat.
+
+Safe Zone chỉ heal khi:
+
+not in combat
+TASK G — Progression
+
+Mục tiêu:
+
+Aura milestone unlock:
+
+HP;
+Damage;
+Skills.
+
+Phải đọc Config.
+
+Không hard-code milestone trong service.
+
+TASK H — AFK
+
+Mục tiêu:
+
+Player trong AFK zone:
+
+nhận Aura theo interval.
+
+Phải có:
+
+AFK level;
+multiplier;
+zone detection.
+
+AFK reward đi qua:
+
+AuraService.
+
+TASK I — Shop
+
+Mục tiêu:
+
+Implement:
+
+Aura packs;
+multipliers;
+protection;
+teleport.
+
+Mọi purchase phải được server validate.
+
+Robux transaction:
+
+MarketplaceService.
+
+Không tin client nói:
+
+“tôi đã mua.”
+
+TASK J — Admin
+
+Mục tiêu:
+
+Commands:
+
+giveaura
+setaura
+spawnboss
+event
+
+Chỉ authorized admin.
+
+Mọi action phải log.
+
+TASK K — UI
+
+Mục tiêu:
+
+HUD:
+
+Aura;
+HP;
+Damage;
+combat state;
+notifications;
+shop;
+leaderboard.
+
+UI không quyết định game state.
+
+UI chỉ:
+
+display server state.
+
+TASK L — Map
+
+Mục tiêu:
+
+Build:
+
+Safe Zone;
+Low Level;
+Mid Level;
+High Level;
+PvP area;
+AFK area.
+
+Không cần detailed art trong MVP.
+
+TASK M — QA
+
+Test:
+
+Aura
+gain;
+loss;
+death;
+reconnect.
+Combat
+valid attack;
+invalid range;
+cooldown;
+multiple players.
+PvP
+1 attacker;
+10 attackers;
+100 attackers;
+reward splitting.
+Safe Zone
+combat player enters;
+attack continues;
+60-second timeout;
+healing.
+Data
+leave;
+reconnect;
+server shutdown;
+DataStore failure.
+Exploit
+fake Aura;
+fake damage;
+fake purchase;
+fake teleport.
+44. DEVELOPMENT ORDER
+
+Đây cực kỳ quan trọng.
+
+Không cho team làm lung tung.
+
+Phase 1 — Foundation
+Player
+Aura
+Data
+Config
+Phase 2 — PvE
+NPC
+Attack
+Reward
+Progression
+Phase 3 — PvP
+Player damage
+Death
+Aura loss
+Reward pool
+Contribution
+Phase 4 — World
+Map
+Safe Zone
+Combat State
+AFK
+Phase 5 — Economy
+Shop
+Robux
+Boost
+Consumables
+Phase 6 — Social
+Leaderboard
+Server Boss
+Threat system
+Events
+Phase 7 — Polish
+VFX
+SFX
+Animations
+UI
+Tutorial
+Optimization
+45. MVP — NHỮNG GÌ BẮT BUỘC
+
+Nếu chỉ có 7 ngày:
+
+PHẢI CÓ
+ 10 Aura starting
+ NPC
+ Basic attack
+ Aura reward
+ Aura progression
+ HP/Damage
+ PvP
+ Aura loss
+ reward splitting
+ Safe Zone
+ Combat State
+ DataStore
+ leaderboard
+ basic UI
+CÓ THỂ ĐỂ SAU
+ complex skills
+ massive events
+ trading
+ clans
+ 20+ maps
+ 100+ NPCs
+ elaborate cosmetics
+46. 7-DAY DEVELOPMENT PLAN
+DAY 1
+
+Foundation
+
+Roblox project;
+folders;
+config;
+player state;
+AuraService;
+DataStore.
+
+Milestone:
+
+Player spawn với 10 Aura và save được.
+
+DAY 2
+
+PvE
+
+NPC;
+attack;
+NPC death;
+Aura reward;
+progression.
+
+Milestone:
+
+Player farm được Aura.
+
+DAY 3
+
+PvP
+
+player attack;
+damage;
+death;
+Aura loss;
+reward pool.
+
+Milestone:
+
+Player A giết Player B và nhận Aura.
+
+DAY 4
+
+World
+
+map;
+Safe Zone;
+combat state;
+AFK.
+
+Milestone:
+
+PvP chase hoạt động.
+
+DAY 5
+
+Economy
+
+shop;
+Aura packs;
+multiplier;
+teleport;
+protection.
+
+Milestone:
+
+Robux flow hoạt động.
+
+DAY 6
+
+Polish
+
+UI;
+VFX;
+SFX;
+leaderboard;
+onboarding.
+DAY 7
+
+QA + Publish
+
+exploit tests;
+DataStore tests;
+performance;
+mobile;
+publish.
+47. KILL / SCALE CRITERIA
+
+Không quyết định bằng:
+
+“Tôi thấy game khá vui.”
+
+Phải đo.
+
+🟢 SCALE
+
+Nếu người chơi:
+
+quay lại;
+farm lâu;
+chủ động PvP;
+tạo group hunt;
+chase player mạnh;
+khoe Aura;
+mua items;
+tạo video/meme.
+
+→ tiếp tục phát triển.
+
+🟡 ITERATE
+
+Nếu:
+
+player hiểu game nhưng quit nhanh.
+
+Sửa:
+
+onboarding / progression / combat.
+
+🔴 KILL
+
+Nếu sau nhiều iteration:
+
+player không muốn farm, không muốn PvP, không quan tâm Aura.
+
+→ stop.
+
+Framework vẫn giữ.
+
+48. POST-MVP ROADMAP
+
+Nếu v0.1 thành công:
+
+v0.2
+5–10 skills;
+nhiều NPC;
+better combat;
+more zones.
+v0.3
+admin events;
+world bosses;
+bounty;
+server boss.
+v0.4
+clans;
+parties;
+alliances.
+v0.5
+trading;
+cosmetics;
+aura visual customization.
+v1.0
+
+Full live-service game.
+
+49. GAME DESIGN PRINCIPLES
+
+Mọi người làm project phải tuân thủ:
+
+Rule 1
+
+Server authoritative.
+
+Rule 2
+
+Aura luôn đi qua AuraService.
+
+Rule 3
+
+Balance nằm trong Config.
+
+Rule 4
+
+Không xây feature trước khi core loop ổn.
+
+Rule 5
+
+Không để player mạnh trở thành bất tử.
+
+Rule 6
+
+Không để player yếu hoàn toàn vô vọng.
+
+Rule 7
+
+PvP phải tạo drama.
+
+Rule 8
+
+AFK hỗ trợ progression nhưng không thay thế active gameplay.
+
+Rule 9
+
+Monetization tăng tốc / convenience / status; không phá hoàn toàn gameplay.
+
+Rule 10
+
+Mọi feature mới phải trả lời câu hỏi: “Nó có làm core loop vui hơn không?”
+
+50. DEFINITION OF DONE — v0.1
+
+Chúng ta chỉ tuyên bố MVP hoàn thành khi một player mới có thể:
+
+Join
+ ↓
+Receive 10 Aura
+ ↓
+Find NPC
+ ↓
+Attack NPC
+ ↓
+Gain Aura
+ ↓
+Increase power
+ ↓
+Enter PvP
+ ↓
+Fight another player
+ ↓
+Kill / be killed
+ ↓
+Aura changes correctly
+ ↓
+Reward distributes correctly
+ ↓
+Enter Safe Zone
+ ↓
+Combat expires
+ ↓
+HP regenerates
+ ↓
+Leave
+ ↓
+Rejoin
+ ↓
+Progress remains
+
+Nếu flow này chạy ổn → MVP đạt.
+
+Không cần 50 aura.
+
+Không cần 20 map.
+
+Không cần cinematic.
+
+Không cần 100 skill.
+
+🧩 QUY TẮC GIAO VIỆC CHO AI KHÁC
+
+Đây là phần bro có thể copy nguyên văn khi giao từng task:
+
+Bạn đang làm một module trong Roblox game “AURA BATTLE”.
+
+Game là real-time PvE/PvP progression game. Player bắt đầu với 10 Aura. Aura được kiếm từ NPC, shop, AFK và PvP. Aura quyết định progression và unlock HP/Damage/Skills. PvP death làm mất một phần Aura; phần mất được phân phối cho attacker theo damage contribution.
+
+Yêu cầu kiến trúc:
+
+Server authoritative.
+Không tin client về Aura, damage hoặc purchase.
+Aura modifications phải đi qua AuraService.
+Balance values phải nằm trong Config.
+Module của bạn phải độc lập và expose API rõ ràng.
+Không sửa trực tiếp module của task khác nếu không cần thiết.
+Không hard-code player-specific values.
+Code phải có error handling.
+Code phải có comments cho logic quan trọng.
+
+Task của bạn: [TASK NAME]
+
+Input: [INPUT]
+
+Expected behavior: [BEHAVIOR]
+
+Output: [FILES / MODULES]
+
+Dependencies: [DEPENDENCIES]
+
+Do not implement: [OUT OF SCOPE]
+
+Definition of Done: [TEST CONDITIONS]
+
+🔥 Và đây là hướng đi tôi khuyên bro
+
+Đừng chia 50 task cho 50 AI ngay.
+
+Có nguy cơ rất cao chúng nó mỗi thằng viết một kiểu rồi cuối cùng:
+
+NPCService của AI A
+      ↓
+AuraService của AI B
+      ↓
+CombatService của AI C
+      ↓
+💥 EVERYTHING IS ON FIRE
+
+😂
+
+Tốt nhất là chia thành 5 nhóm lớn:
+
+                 AURA BATTLE
+                      │
+        ┌─────────────┼─────────────┐
+        ↓             ↓             ↓
+   FOUNDATION       GAMEPLAY       WORLD
+   Aura/Data        NPC/Combat     Map/Safe
+   Config           PvP            AFK
+        │             │             │
+        └─────────────┼─────────────┘
+                      ↓
+                 ECONOMY
+                 Shop/Admin
+                      ↓
+                    UI/QA
+
+Một người/AI giữ Foundation làm “nguồn sự thật”, những người khác phụ thuộc vào API của nó. Đây là cách tránh project Roblox nhiều người làm chung biến thành một đống script không ai dám sửa.
+
+Và bản này tôi xem là Master Spec, còn trước khi bắt đầu code chúng ta nên tách tiếp thành /docs + GitHub Issues/Tasks, mỗi task có acceptance criteria rõ ràng. Khi đó bro có thể quăng một issue bất kỳ cho một AI khác, nó đọc context và biết chính xác phải làm gì mà không cần bro giải thích lại cả game.
