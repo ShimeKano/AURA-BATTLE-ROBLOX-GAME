@@ -1,0 +1,52 @@
+⚡ **AURA BATTLE — ROBLOX**
+
+Một game PvP/PvE nơi mục tiêu rất đơn giản:
+
+**Farm Aura → mạnh lên → đi PvP → cướp Aura → trở thành mục tiêu của cả server.**
+
+Bạn bắt đầu với **10 Aura**.
+Đánh NPC để tăng Aura, nâng HP/Damage, rồi bước vào khu vực PvP để săn người khác.
+
+Nhưng càng mạnh thì càng nguy hiểm.
+
+👑 Một người có hàng triệu Aura có thể trở thành **Server Boss**.
+👥 Những người yếu hơn có thể hợp lực để hạ họ.
+💀 Chết trong PvP sẽ mất một phần Aura.
+🔥 Admin có thể tạo event, boss, Aura Rain và những trận chiến lớn.
+
+Game đang được xây dựng theo hướng **real-time combat + progression + social PvP**, với mục tiêu tạo ra những tình huống kiểu:
+
+> “Thằng mạnh nhất server đang ở đâu?”
+> “Tập hợp người lại, đi săn nó.” 💀
+
+### 👥 Bọn mình đang tìm
+
+🎮 **Player / Tester**
+Chơi thử, tìm bug, đánh giá combat, progression và chỉ ra thứ gì **chán / khó hiểu / không vui**.
+
+💻 **Developer**
+Luau/Roblox scripting, gameplay, combat, NPC, hệ thống Aura, DataStore...
+
+🎨 **Builder / UI / VFX**
+Map, UI, hiệu ứng Aura, combat effects...
+
+🧠 **Game Designer / Balance**
+Đánh giá progression, PvP balance, economy và đề xuất cách làm game vui hơn.
+
+Không cần phải là pro.
+**Quan trọng nhất là có thể đưa ra feedback thật và muốn xây game cùng nhau.**
+
+### 🚀 Muốn tham gia?
+
+Bạn có thể:
+
+**1. Chơi thử và góp ý**
+→ Nói cho bọn mình biết game đang thiếu gì.
+
+**2. Muốn làm cùng project**
+→ Fork repository và gửi một PR đơn giản `[JOIN] username`.
+
+📌 Project được xây dựng công khai, có roadmap, design rules và documentation để bất kỳ contributor nào cũng có thể hiểu game đang hướng tới đâu.
+
+**AURA BATTLE không cần thêm người chỉ để viết code.
+Bọn mình cần những người muốn biến nó thành một game thật sự đáng chơi.** ⚡
