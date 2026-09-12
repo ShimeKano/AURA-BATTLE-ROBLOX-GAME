@@ -1,0 +1,29 @@
+{
+  "name": "AURA-BATTLE",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/shared"
+      },
+      "Remotes": {
+        "$folder": "remotes"
+      }
+    },
+    "ServerScriptService": {
+      "Services": {
+        "$path": "src/server/Services"
+      },
+      "ServerMain": {
+        "$path": "src/server/ServerMain.server.lua"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "ClientMain": {
+          "$path": "src/client/ClientMain.client.lua"
+        }
+      }
+    }
+  }
+}
